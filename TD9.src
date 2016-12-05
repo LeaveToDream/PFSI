@@ -1,0 +1,22 @@
+//Symbole
+S_Load equ 0xFFDC
+S_In equ 0xFFA0
+S_Out equ 0xFFA2 
+S_Seuil equ 3 
+S_RESET_PC equ 0xFFFA
+//Init
+ORG S_Load
+STACKBASE S_Load
+START L_Init
+//Prog
+L_Init		LDW R1, #S_In
+		LDW R2, #S_Out
+L_Load 		LDW R0, (R1)
+		ADQ -S_Seuil , R0
+		BGE L_Posipi-$-2
+		NEG R0, R0
+L_Posipi	SRL R0, R0
+		STW R0, (R2)
+		BMP L_Load-$-2
+		RSB S_RESET_PC-$
+		BMP L_Load-$-2

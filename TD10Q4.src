@@ -1,0 +1,31 @@
+//Symbole 
+S_Load equ 0xFF10
+S_Seuil equ 3 
+S_RESET_PC equ 0xFFFA
+S_Stacka equ 0x1000
+S_In equ 0xFF00
+S_Out equ 0xFF01
+SP equ R15
+//Init
+ORG S_Load
+STACKBASE S_Stacka
+START L_MAIN
+//Prog
+// F(x)
+L_DISTA 	LDW R1, R2
+		ADQ -S_Seuil , R1
+		BGE L_Posipi-$-2
+		NEG R1, R1
+L_Posipi	SRA R1, R0
+		RTS
+
+// Main
+L_MAIN		LDW SP, #S_Stacka
+		LDW R2, @S_In
+		JSR @L_DISTA
+		STW R0, @S_Out
+		JEA @L_MAIN
+// Reset
+
+		RSB S_RESET_PC-$
+		JEA @L_MAIN

@@ -1,0 +1,45 @@
+// Q1 : Un interruption est une exception déclenché par un périphérique (un truc branché au cpu).
+// Q2 : 
+
+// Symbole
+CNTMA		equ 0xFF00
+CNTI		equ 0xFF02
+MAXIM		equ 0x006F
+STACKA		equ 0x1000
+SP		equ R15
+
+// Init
+ORG 0xFFA0
+STACKBASE STACKA
+START Main-2
+ENI
+
+// Instruction pour empiler : STW R0, -(SP)
+// Instruction pour dépiler : LDW R0, (SP)+
+// Main
+
+Main		LDW R0, #MAXIM
+		
+
+
+Main_prga	LDW R1, #CNTMA
+		LDW R2, #0
+		STW R2, (R1)
+Loop		ADQ 0x0010, R2
+		STW R2, (R1)
+		CMP R2, R0
+		JAE #Main_prga-$-2
+		JMP #Loop-$-2
+
+IT_prga		STW R1, -(SP) // On sauvegarde les registres auxquels on touche
+		STW R2, -(SP) 
+		LDW R1, #CNTI
+		LDW R2, #0
+		STW R2, (R1)
+		ADQ 0x0002, R2
+		STW R2, (R1)
+		LDW R2, (SP)+
+		LDW R1, (SP)+
+		RTI 
+
+

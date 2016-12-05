@@ -1,0 +1,16 @@
+ffa0  origine
+ff9e  debut d'execution
+6080   emplacement : 65440  (0xffa0)  ligne n° 14	Main		LDW R0, #MAXIM
+006f   emplacement : 65442  (0xffa2) 
+6180   emplacement : 65444  (0xffa4)  ligne n° 15			LDW R1, #CNTMA
+ff00   emplacement : 65446  (0xffa6) 
+6280   emplacement : 65448  (0xffa8)  ligne n° 16	Main_prga	LDW R2, #0
+0000   emplacement : 65450  (0xffaa) 
+6221   emplacement : 65452  (0xffac)  ligne n° 17			STW R2, (R1)
+3210   emplacement : 65454  (0xffae)  ligne n° 18	Loop		ADQ 0x0010, R2
+6221   emplacement : 65456  (0xffb0)  ligne n° 19			STW R2, (R1)
+4f20   emplacement : 65458  (0xffb2)  ligne n° 20			CMP R2, R0
+0880   emplacement : 65460  (0xffb4)  ligne n° 21			JAE #Main_prga-$-2
+fff2   emplacement : 65462  (0xffb6) 
+0180   emplacement : 65464  (0xffb8)  ligne n° 22			JMP #Loop-$-2
+fff4   emplacement : 65466  (0xffba) 
